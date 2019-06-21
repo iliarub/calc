@@ -14,8 +14,9 @@ plug* init(char p[], char b[], char f[])
 plug* add(plug* plg)
 {
 	char p[15], b[15], f[15];
+	getchar();
 	printf("Vvedite nazvanie plugina \n");
-	fgets(p, 15, stdin);
+	fgets(p, sizeof p, stdin);
 	printf("Vvedite nazvanie biblioteki \n");
 	fgets(b, 15, stdin);
 	printf("Vvedite nazvanie funckcii \n");
@@ -37,9 +38,9 @@ plug* add(plug* plg)
 	return(tmp);
 }
 
-/*list *del(list *dd, list *root)
+plug *del(plug *dd, plug *root)
 {
-		list *tmp;
+		plug *tmp;
 		tmp = root;
 		int i = 0;
 		while (tmp->next != dd)
@@ -51,7 +52,7 @@ plug* add(plug* plg)
 		free(dd);
 		return(tmp);
 
-}*/
+}
 
 void print(plug* plg)
 {
@@ -68,12 +69,12 @@ void print(plug* plg)
 }
 
 plug* search(int i, plug *plg)
-{plug *tmp;
+{		plug *tmp;
 		tmp = plg;
 	i--;
 	while (i!=0)
 	{
-		if (tmp == NULL) { printf("Pusto"); return (plg); }
+		if (tmp == NULL) { printf("Pusto"); return (NULL); }
 		plg = plg->next;
 		i--;
 	}
@@ -122,9 +123,21 @@ void menu()
 			else
 				add(b);
 			break;  }
-		
+		case 2:
+		{
+			print(b);
+			printf("vvedite znachenie elem na udalenie\n");
+			int t2 = 1;
+
+			scanf("%d", &t2);
+			if (search(t2, b))
+				del(search(t2, b), b);
+			else printf("net elementa\n");
+			break;
+
+		}
 		case 3: {
-			
+
 			int i;
 			printf("viberete plagin\n");
 			print(b);
@@ -175,16 +188,3 @@ void menu()
 
 }*/
 
-		/*case 2:
-		{
-			print(b);
-			printf("vvedite znachenie elem na udalenie\n");
-			int t2 = 1;
-
-			scanf("%d", &t2);
-			if (search(b, t2))
-				del(search(b, t2), b);
-			else printf("net elementa\n");
-			break;
-
-		}*/
